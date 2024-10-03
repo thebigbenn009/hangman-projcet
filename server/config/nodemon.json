@@ -1,0 +1,6 @@
+{
+  "watch": ["server", "config"],
+  "ext": "ts",
+  "ignore": ["node_modules", "dist"],
+  "exec": "ts-node -r dotenv/config ./server/server.ts dotenv_config_path=./config/config.dev.env"
+}
