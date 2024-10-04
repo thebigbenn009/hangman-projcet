@@ -1,48 +1,139 @@
 /*!*********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./app/css/how-to-play.css ***!
   \*********************************************************************************************************************************************************************************************************************************************************************/
+.section-how-to-play {
+  height: 100%;
+  width: 100%;
+
+  padding-bottom: 167px;
+  /* background-image: url("/images/background-desktop.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; */
+}
 .how-to-play {
   width: 384px;
   border-radius: 40px;
   display: grid;
   gap: 40px;
   padding-inline: 43.5px;
+  padding-block: 60px;
   place-items: center;
   background-color: #fff;
 }
-.how-to-play h2 {
-  color: #2463ff;
-}
-.how-to-play h3 {
-  color: #261676;
-}
-.how-to-play p {
-  color: #887dc0;
-  letter-spacing: 5%;
-  line-height: 120%;
-}
-.how-to-play-wrapper {
+.how-to-play-cont {
   width: 1216px;
   margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+.how-to-play-header {
+  padding-top: 80px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  grid-template-columns: auto 1fr;
 }
-.section-how-to-play {
-  height: 100vh;
-  width: 100%;
-  background-image: url("/images/background-desktop.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+
 .how-to-play-header h1 {
   display: inline-block;
+  justify-self: center;
   background-image: linear-gradient(to bottom, #67b6ff 0%, #ffffff 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   font-weight: 700;
   -webkit-text-stroke: 2px #243041;
+}
+.how-to-play h2 {
+  color: #2463ff;
+}
+.how-to-play h3 {
+  color: #261676;
+  text-transform: uppercase;
+}
+.how-to-play p {
+  color: #887dc0;
+
+  line-height: 120%;
+}
+.how-to-play-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.icon-back {
+  width: 94px;
+  height: 94px;
+  border-radius: 47px;
+  display: grid;
+  place-items: center;
+  align-self: center;
+  cursor: pointer;
+  background: linear-gradient(to bottom, #fe71fe 0%, #7199ff 100%);
+  box-shadow: inset 0px -6px 0px rgba(157, 45, 246, 0.25),
+    inset 0px -6px 7px rgba(157, 45, 246, 0.25);
+  transition: transform 0.1s ease, box-shadow 0.1s ease,
+    background-image 0.3s ease;
+}
+
+.icon-back:hover {
+  background: linear-gradient(to bottom, #7199ff 0%, #fe71fe 100%);
+}
+
+.icon-back:active {
+  transform: translateY(4px);
+  box-shadow: inset 0px -3px 0px rgba(157, 45, 246, 0.25),
+    inset 0px -3px 4px rgba(157, 45, 246, 0.25);
+}
+
+/*!***********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./app/css/pick-category.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************/
+.pick-category {
+  height: 100vh;
+  width: 1216px;
+  margin-inline: auto;
+}
+.category {
+  width: 384px;
+  height: 190px;
+  border-radius: 40px;
+  display: grid;
+  place-items: center;
+  background-color: #2463ff;
+  position: relative;
+  overflow: hidden;
+}
+
+.category::before,
+.category::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 40px;
+}
+
+.category::before {
+  filter: blur(3px) brightness(0.5);
+  /* background-color: rgba(0, 0, 0, 0.1); */
+  transform: translateY(1px);
+}
+
+.category::after {
+  filter: blur(2px) brightness(0.5);
+  /* background-color: rgba(0, 0, 0, 0.2); */
+  transform: translateY(-2px);
+}
+.category-h3 {
+  color: #fff;
+}
+.categories {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
 }
 

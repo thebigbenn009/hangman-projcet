@@ -1,7 +1,8 @@
+"use client";
 import React from "react";
 import "../../css/how-to-play.css";
 export interface HowToPlayCardProps {
-  num: number;
+  num: string;
   title: string;
   body: string;
 }
