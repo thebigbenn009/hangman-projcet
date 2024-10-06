@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { initializeSlice } from "./features/initialize/initialize";
+import { gameSlice } from "./features/gameSlice";
 // ...
 
 export const store = configureStore({
   reducer: {
     initialize: initializeSlice.reducer,
+    game: gameSlice.reducer,
   },
 });
 

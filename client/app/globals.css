@@ -17,17 +17,21 @@ body {
 }
 h1 {
   font-size: 136px;
+  color: #fff;
 }
 h2 {
   font-size: 88px;
   font-weight: normal;
+  color: #fff;
 }
 h3 {
   font-size: 48px;
   font-weight: 100;
+  color: #fff;
 }
 h4 {
   font-size: 32px;
+  color: #fff;
 }
 .btn {
   padding-inline: 4rem;

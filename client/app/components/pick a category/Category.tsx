@@ -1,12 +1,15 @@
+"use client";
+import Link from "next/link";
 import React from "react";
 interface CategoryProps {
   text: string;
+  id: string;
 }
-const Category = ({ text }: CategoryProps) => {
+const Category = ({ text, id }: CategoryProps) => {
   return (
-    <article className="category">
+    <Link href={`/games/${id}`} className="category">
       <h3 className="category-h3">{text}</h3>
-    </article>
+    </Link>
   );
 };
 

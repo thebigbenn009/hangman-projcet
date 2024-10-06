@@ -31,8 +31,10 @@ const Categories = () => {
   }
   return (
     <div className="categories">
-      {data.map((category: { name: string }) => {
-        return <Category key={category.name} text={category.name} />;
+      {data.map((category: { name: string; _id: string }) => {
+        return (
+          <Category key={category._id} text={category.name} id={category._id} />
+        );
       })}
     </div>
   );
