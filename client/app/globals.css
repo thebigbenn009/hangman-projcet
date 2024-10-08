@@ -38,13 +38,19 @@ h4 {
   padding-block: 1.33rem;
 }
 .background-wrapper {
-  background-image: url("/images/background-desktop.svg");
+  background-image: linear-gradient(
+      180deg,
+      rgb(26, 4, 58, 0.8) 0%,
+      rgb(21, 18, 120, 0.6) 70%,
+      rgba(43, 22, 119, 0.6) 100%
+    ),
+    url("/images/background-desktop.svg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* height: 100vh; */
   width: 100%;
 }
+
 .home-section {
   height: 100vh;
   padding-top: 12.7rem;

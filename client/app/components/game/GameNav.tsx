@@ -1,6 +1,13 @@
+"use client";
+import { useAppSelector } from "@/app/hooks";
+import { RootState } from "@/app/store";
 import React from "react";
 
 const GameNav = () => {
+  const healthBar = useAppSelector(
+    (state: RootState) => state.game.numOfTriesLeft
+  );
+  const healtBarProgress = 12.5 * healthBar;
   return (
     <div className="game-header">
       <div className="header-1">
@@ -19,7 +26,7 @@ const GameNav = () => {
       </div>
       <div className="header-2">
         <div className="health-bar">
-          <span></span>
+          <span style={{ width: `${healtBarProgress}%` }}></span>
         </div>
         <span className="icon-heart">
           <svg

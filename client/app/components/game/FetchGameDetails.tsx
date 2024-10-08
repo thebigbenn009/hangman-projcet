@@ -1,6 +1,10 @@
 "use client";
 
-import { CategoryData, loadGameData } from "@/app/features/gameSlice";
+import {
+  CategoryData,
+  gamePuzzle,
+  loadGameData,
+} from "@/app/features/gameSlice";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
@@ -8,6 +12,8 @@ import "../../css/game.css";
 import GameHeader from "../GameHeader";
 import GameNav from "./GameNav";
 import { RootState } from "@/app/store";
+import Buttons from "./Buttons";
+import Puzzle from "./Puzzle";
 
 const fetchCategoryDetails = async (id: string) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_GAME_URL}/${id}`);
@@ -25,6 +31,9 @@ const FetchGameDetails = ({ id }: FetchGameDetailsProps) => {
   const category = useAppSelector(
     (state: RootState) => state.game.category
   ) as CategoryData;
+  const missingWords = useAppSelector(
+    (state: RootState) => state.game.missingWords
+  );
 
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["category", id],
@@ -33,20 +42,20 @@ const FetchGameDetails = ({ id }: FetchGameDetailsProps) => {
   useEffect(() => {
     if (data) {
       dispatch(loadGameData(data));
+      dispatch(gamePuzzle());
     }
   }, [data]);
   let puzzle =
-    category &&
-    category.items &&
-    category.items.length > 0 &&
-    category.items[0].name;
-  let puzTest = puzzle.toString().split("");
-  console.log(puzTest);
+    category && category.items && category.items.length > 0
+      ? category.items[0].name
+      : "";
+
   return (
     <section className="game-section">
       <div className="game-container">
         <GameNav />
-        <p>{puzzle}</p>
+        <Puzzle />
+        <Buttons />
       </div>
     </section>
   );

@@ -1,5 +1,5 @@
 .game-section {
-  height: 100vh;
+  height: auto;
 }
 .game-container {
   width: 1216px;
@@ -10,6 +10,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 88px;
 }
 .menu-button {
   display: grid;
@@ -68,7 +69,7 @@
   display: inline-block;
 
   height: 13px;
-  width: 100%;
+  /* width: 100%; */
   background-color: #261676;
   border-radius: inherit;
   transition: all 0.3s ease-in-out;
@@ -77,4 +78,79 @@
   display: flex;
   align-items: center;
   gap: 40px;
+}
+.game-keys {
+  font-family: "Mouse Memoirs", sans-serif;
+  display: grid;
+  place-items: center;
+  width: 109px;
+  padding-block: 13px;
+  line-height: 120%;
+  letter-spacing: 5%;
+  /* height: 84px; */
+  background-color: white;
+  border-radius: 24px;
+  color: #261676;
+  font-size: 48px;
+  text-transform: uppercase;
+}
+.alphabets {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.words {
+  width: 80%;
+  margin-bottom: 120px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-inline: auto;
+  text-align: center;
+}
+.puzzle {
+  font-size: 88px;
+  font-family: "Mouse Memoirs", sans-serif;
+  text-transform: uppercase;
+  width: 113px;
+  cursor: pointer;
+  height: 128px;
+  padding-inline: 37.5px;
+  padding-block: 11px;
+  border-radius: 40px;
+  background-color: #2463ff;
+  position: relative;
+  border: solid 2px transparent;
+  color: #fff;
+  box-shadow: 0 1px 0 0 rgba(59, 116, 255, 0.6),
+    inset 0 -6px 0 0 rgba(20, 12, 102, 0.4),
+    inset 0 -3px 0 0 rgba(66, 23, 102, 0.8);
+  transition: all 0.3s ease-in-out;
+}
+.puzzle:focus {
+  outline: none;
+  border-color: #261676;
+}
+.puzzle.wrong {
+  border: solid 2px red;
+}
+.puzzle-space {
+  width: 113px;
+  height: 128px;
+  border-radius: 40px;
+  background-color: rgba(36, 99, 255, 0.35);
+  border: solid 2px transparent;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+.clicked {
+  /* border: solid 1px #eee;
+  opacity: 0.5; */
+}
+.puzzle-whitespace {
+  width: 113px;
+
+  height: 128px;
 }
