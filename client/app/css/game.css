@@ -141,7 +141,7 @@
   height: 128px;
   border-radius: 40px;
   background-color: rgba(36, 99, 255, 0.35);
-  border: solid 2px;
+  border: solid 2px transparent;
   position: relative;
   transition: all 0.3s ease-in-out;
 }
