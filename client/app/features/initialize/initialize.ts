@@ -4,12 +4,12 @@ import { createSlice } from "@reduxjs/toolkit";
 interface InitialState {
   isHowToPlay: boolean;
   isStart: boolean;
-  newCategory: boolean;
+  quitGame: boolean;
 }
 const initialState: InitialState = {
   isHowToPlay: false,
   isStart: false,
-  newCategory: false,
+  quitGame: false,
 };
 export const initializeSlice = createSlice({
   name: "initilize",
@@ -23,12 +23,13 @@ export const initializeSlice = createSlice({
     },
     openInitializeStart: (state) => {
       state.isStart = true;
+      state.quitGame = false;
     },
     closeInitializeStart: (state) => {
       state.isStart = false;
     },
-    setNewCategory: (state) => {
-      state.newCategory = true;
+    setQuitGame: (state) => {
+      state.quitGame = true;
     },
   },
 });
@@ -36,11 +37,11 @@ export const {
   openHowToPlay,
   closeHowToPlay,
   closeInitializeStart,
-  setNewCategory,
+  setQuitGame,
   openInitializeStart,
 } = initializeSlice.actions;
 export const isHowToPlayMode = (state: RootState) =>
   state.initialize.isHowToPlay;
 export const isStartMode = (state: RootState) => state.initialize.isStart;
-export const newCategory = (state: RootState) => state.initialize.newCategory;
+
 export default initializeSlice.reducer;

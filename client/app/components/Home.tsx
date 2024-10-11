@@ -31,7 +31,11 @@ const Home = () => {
           </figure>
           <div className="btn-container">
             <button onClick={handleStart} className="home-btn">
-              <img src="/images/icon-play.svg" alt="start" />
+              <img
+                className="home-btn-logo"
+                src="/images/icon-play.svg"
+                alt="start"
+              />
             </button>
             <button onClick={handleHowToPlay} className="play-btn">
               how to play

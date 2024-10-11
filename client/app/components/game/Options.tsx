@@ -1,6 +1,11 @@
 "use client";
-import { gamePuzzle, loadGameData, playAgain } from "@/app/features/gameSlice";
-import { setNewCategory } from "@/app/features/initialize/initialize";
+import {
+  gamePuzzle,
+  loadGameData,
+  playAgain,
+  setNewCategory,
+} from "@/app/features/gameSlice";
+import { setQuitGame } from "@/app/features/initialize/initialize";
 import { useAppDispatch } from "@/app/hooks";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -14,10 +19,15 @@ const Options = () => {
     dispatch(gamePuzzle());
   };
   const handleNewCategory = () => {
+    dispatch(playAgain());
     dispatch(setNewCategory());
     router.push("/");
   };
-  const handleQuitGame = () => {};
+  const handleQuitGame = () => {
+    dispatch(playAgain());
+    dispatch(setQuitGame());
+    router.push("/");
+  };
   return (
     <div className="options">
       <button onClick={handlePlayAgain} className="option-1">
@@ -26,7 +36,9 @@ const Options = () => {
       <button onClick={handleNewCategory} className="option-1">
         new category
       </button>
-      <button className="option-2">quit game</button>
+      <button onClick={handleQuitGame} className="option-2">
+        quit game
+      </button>
     </div>
   );
 };

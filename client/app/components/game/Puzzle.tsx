@@ -56,11 +56,11 @@ const Puzzle = () => {
     }
   };
   useEffect(() => {
-    dispatch(updateAnswer(inputValues));
     if (gameStarted) {
+      dispatch(updateAnswer(inputValues));
       dispatch(checkForWin());
     }
-  }, [inputValues, gameStarted, dispatch]);
+  }, [inputValues, gameStarted]);
 
   return (
     <div className="">

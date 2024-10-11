@@ -24,6 +24,7 @@ interface InitialState {
   incorrectIndices: number[];
   gameOver: boolean;
   verdict: "" | "you win" | "you lose";
+  newCategory: boolean;
 }
 const initialState: InitialState = {
   gameStarted: false,
@@ -65,6 +66,7 @@ const initialState: InitialState = {
   incorrectIndices: [],
   gameOver: false,
   verdict: "",
+  newCategory: false,
 };
 export const gameSlice = createSlice({
   name: "game",
@@ -157,16 +159,22 @@ export const gameSlice = createSlice({
       const randomNumber = Math.floor(
         Math.random() * state.category.items.length
       );
-      state.game = state.category.items[randomNumber];
+      // state.game = state.category.items[randomNumber];
       state.numOfTriesLeft = 8;
       state.verdict = "";
+      state.userOption = null;
       state.missingWords = null;
       state.correctWords = null;
-      state.userOption = null;
       state.isCorrect = null;
       state.incorrectIndices = [];
       state.gameOver = false;
       state.gameStarted = false;
+    },
+    setNewCategory: (state) => {
+      state.newCategory = true;
+      state.category = null;
+      state.game = null;
+      state.userOption = null;
     },
   },
 });
@@ -180,5 +188,6 @@ export const {
   checkForCorrectAnswer,
   playAgain,
   checkForWin,
+  setNewCategory,
 } = gameSlice.actions;
 export default gameSlice.reducer;
