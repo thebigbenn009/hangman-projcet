@@ -4,6 +4,7 @@ import {
   CategoryData,
   gamePuzzle,
   loadGameData,
+  saveCurrentCategory,
 } from "@/app/features/gameSlice";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { useQuery } from "@tanstack/react-query";
@@ -14,6 +15,8 @@ import GameNav from "./GameNav";
 import { RootState } from "@/app/store";
 import Buttons from "./Buttons";
 import Puzzle from "./Puzzle";
+import Modal from "../modal/Modal";
+import Options from "./Options";
 
 const fetchCategoryDetails = async (id: string) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_GAME_URL}/${id}`);
@@ -21,6 +24,7 @@ const fetchCategoryDetails = async (id: string) => {
     throw new Error("Failed to fetch category data");
   }
   const data = await res.json();
+
   return data.data.category;
 };
 interface FetchGameDetailsProps {
@@ -31,17 +35,16 @@ const FetchGameDetails = ({ id }: FetchGameDetailsProps) => {
   const category = useAppSelector(
     (state: RootState) => state.game.category
   ) as CategoryData;
-  const missingWords = useAppSelector(
-    (state: RootState) => state.game.missingWords
-  );
-
+  const verdict = useAppSelector((state: RootState) => state.game.verdict);
+  const gameOver = useAppSelector((state: RootState) => state.game.gameOver);
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["category", id],
     queryFn: () => fetchCategoryDetails(id),
   });
   useEffect(() => {
     if (data) {
-      dispatch(loadGameData(data));
+      dispatch(saveCurrentCategory(data));
+      dispatch(loadGameData());
       dispatch(gamePuzzle());
     }
   }, [data]);
@@ -51,11 +54,17 @@ const FetchGameDetails = ({ id }: FetchGameDetailsProps) => {
       : "";
 
   return (
-    <section className="game-section">
+    <section className={`game-section ${gameOver ? "game-over" : ""}`}>
       <div className="game-container">
         <GameNav />
         <Puzzle />
         <Buttons />
+        {gameOver && (
+          <Modal>
+            <p className="verdict">{verdict}</p>
+            <Options />
+          </Modal>
+        )}
       </div>
     </section>
   );

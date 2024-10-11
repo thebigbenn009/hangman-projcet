@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import Category from "./Category";
 import { useQuery } from "@tanstack/react-query";
+import { useAppDispatch } from "@/app/hooks";
 const fetchCategories = async () => {
   const response = await fetch("http://127.0.0.1:8000/api/v1/games");
   if (!response.ok) {
@@ -29,6 +30,7 @@ const Categories = () => {
       </div>
     );
   }
+
   return (
     <div className="categories">
       {data.map((category: { name: string; _id: string }) => {

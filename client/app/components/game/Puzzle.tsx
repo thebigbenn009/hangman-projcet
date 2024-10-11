@@ -1,12 +1,23 @@
 "use client";
-import { checkForCorrectAnswer, updateAnswer } from "@/app/features/gameSlice";
+import {
+  checkForCorrectAnswer,
+  checkForWin,
+  setGameStarted,
+  updateAnswer,
+} from "@/app/features/gameSlice";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { RootState } from "@/app/store";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Puzzle = () => {
   const dispatch = useAppDispatch();
   const isCorrect = useAppSelector((state: RootState) => state.game.isCorrect);
+  const gameStarted = useAppSelector(
+    (state: RootState) => state.game.gameStarted
+  );
+  const game = useAppSelector((state: RootState) => state.game.game);
+
   const inCorrectIndices = useAppSelector(
     (state: RootState) => state.game.incorrectIndices
   );
@@ -21,7 +32,6 @@ const Puzzle = () => {
     if (missingWords) {
       setInputValues(missingWords?.map((word) => word ?? ""));
     }
-    console.log(missingWords);
   }, [missingWords]);
 
   const handleInputChange = (
@@ -30,19 +40,27 @@ const Puzzle = () => {
   ) => {
     const newInputValues = [...inputValues];
     newInputValues[index] = event.target.value;
-    console.log(index, event.target.value);
 
     setInputValues(newInputValues);
     setClickedIndex(index);
-    // dispatch(updateAnswer(newInputValues));
+
     const userOption = {
       index,
       value: event.target.value,
     };
     if (event.target.value !== "") {
+      if (!gameStarted) {
+        dispatch(setGameStarted(true));
+      }
       dispatch(checkForCorrectAnswer(userOption));
     }
   };
+  useEffect(() => {
+    dispatch(updateAnswer(inputValues));
+    if (gameStarted) {
+      dispatch(checkForWin());
+    }
+  }, [inputValues, gameStarted, dispatch]);
 
   return (
     <div className="">
@@ -50,22 +68,17 @@ const Puzzle = () => {
         {inputValues.length > 0 ? (
           inputValues.map((value, index) =>
             value === " " ? (
-              <span className="puzzle-whitespace"></span>
+              <span key={index} className="puzzle-whitespace"></span>
             ) : (
               <input
                 key={index}
                 className={`puzzle ${value === "" ? "puzzle-space" : ""}${
                   inCorrectIndices.includes(index) ? "wrong" : ""
                 } `}
-                // style={{
-                //   border: inCorrectIndices.includes(index)
-                //     ? "solid 2px red"
-                //     : "",
-                // }}
                 type="text"
                 value={value}
                 onChange={(event) => handleInputChange(index, event)} //
-                readOnly={!!missingWords![index]}
+                readOnly={!!(missingWords && missingWords[index])}
               />
             )
           )

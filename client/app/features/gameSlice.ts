@@ -12,6 +12,7 @@ export interface CategoryData {
   items: GameData[];
 }
 interface InitialState {
+  gameStarted: boolean;
   numOfTriesLeft: number;
   category: CategoryData | null;
   game: GameData | null;
@@ -21,8 +22,11 @@ interface InitialState {
   correctWords: string[] | null;
   isCorrect: boolean | null;
   incorrectIndices: number[];
+  gameOver: boolean;
+  verdict: "" | "you win" | "you lose";
 }
 const initialState: InitialState = {
+  gameStarted: false,
   category: null,
   numOfTriesLeft: 8,
   game: null,
@@ -59,14 +63,26 @@ const initialState: InitialState = {
     "z",
   ],
   incorrectIndices: [],
+  gameOver: false,
+  verdict: "",
 };
 export const gameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {
-    loadGameData: (state, action: PayloadAction<CategoryData>) => {
+    saveCurrentCategory: (state, action: PayloadAction<CategoryData>) => {
       state.category = action.payload;
-      state.game = action.payload.items[0];
+    },
+    loadGameData: (state) => {
+      if (!state.category) return;
+
+      const randomNumber = Math.floor(
+        Math.random() * state.category.items.length
+      );
+      state.game = state.category.items[0];
+    },
+    setGameStarted: (state, action: PayloadAction<boolean>) => {
+      state.gameStarted = action.payload;
     },
     gamePuzzle: (state) => {
       if (state.game) {
@@ -109,6 +125,13 @@ export const gameSlice = createSlice({
         state.isCorrect = false;
         state.incorrectIndices.push(index);
         state.numOfTriesLeft--;
+        if (state.numOfTriesLeft < 1) {
+          state.numOfTriesLeft = 0;
+          state.gameOver = true;
+          state.verdict = "you lose";
+
+          return;
+        }
       } else if (correctWordMatch.toLowerCase() === value.toLowerCase()) {
         state.isCorrect = true;
         state.incorrectIndices = state.incorrectIndices.filter(
@@ -116,9 +139,46 @@ export const gameSlice = createSlice({
         );
       }
     },
+    checkForWin: (state) => {
+      if (!state.correctWords || !state.userOption) {
+        return;
+      }
+      const isArrayEqual = state.userOption.every(
+        (value, index) =>
+          value.toLowerCase() === state.correctWords![index].toLowerCase()
+      );
+      if (isArrayEqual) {
+        state.gameOver = true;
+        state.verdict = "you win";
+      }
+    },
+    playAgain: (state) => {
+      if (!state.category) return;
+      const randomNumber = Math.floor(
+        Math.random() * state.category.items.length
+      );
+      state.game = state.category.items[randomNumber];
+      state.numOfTriesLeft = 8;
+      state.verdict = "";
+      state.missingWords = null;
+      state.correctWords = null;
+      state.userOption = null;
+      state.isCorrect = null;
+      state.incorrectIndices = [];
+      state.gameOver = false;
+      state.gameStarted = false;
+    },
   },
 });
 
-export const { loadGameData, gamePuzzle, updateAnswer, checkForCorrectAnswer } =
-  gameSlice.actions;
+export const {
+  loadGameData,
+  setGameStarted,
+  saveCurrentCategory,
+  gamePuzzle,
+  updateAnswer,
+  checkForCorrectAnswer,
+  playAgain,
+  checkForWin,
+} = gameSlice.actions;
 export default gameSlice.reducer;
