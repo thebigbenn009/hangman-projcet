@@ -1,9 +1,18 @@
-# Dependency directories
+# dependencies
 node_modules
-# Ignore build output
-.next
-# Environment configuration files
+/.pnp
+.pnp.js
+.yarn/install-state.gz
 
+# testing
+/coverage
+
+# next.js
+client/.next*
+/out/
+
+# production
+/build
 
 .env
 .env.local

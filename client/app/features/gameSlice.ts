@@ -81,7 +81,7 @@ export const gameSlice = createSlice({
       const randomNumber = Math.floor(
         Math.random() * state.category.items.length
       );
-      state.game = state.category.items[0];
+      state.game = state.category.items[randomNumber];
     },
     setGameStarted: (state, action: PayloadAction<boolean>) => {
       state.gameStarted = action.payload;
