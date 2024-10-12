@@ -4,6 +4,9 @@ import { RootState } from "@/app/store";
 import React from "react";
 
 const GameNav = () => {
+  const categoryName = useAppSelector(
+    (state: RootState) => state.game.category
+  );
   const healthBar = useAppSelector(
     (state: RootState) => state.game.numOfTriesLeft
   );
@@ -22,7 +25,7 @@ const GameNav = () => {
             <path fill="#fff" d="M0 0h38v7H0zM0 13h38v6H0zM0 25h38v7H0z" />
           </svg>
         </div>
-        <h2>Countries</h2>
+        <h2>{categoryName?.name}</h2>
       </div>
       <div className="header-2">
         <div className="health-bar">
