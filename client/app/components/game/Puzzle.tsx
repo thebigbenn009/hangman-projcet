@@ -74,7 +74,7 @@ const Puzzle = () => {
             ) : (
               <input
                 key={index}
-                className={`puzzle ${value === "" ? "puzzle-space" : ""}${
+                className={`puzzle ${value === "" ? "puzzle-space" : ""} ${
                   inCorrectIndices.includes(index) ? "wrong" : ""
                 } `}
                 type="text"
