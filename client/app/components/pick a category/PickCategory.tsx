@@ -1,5 +1,4 @@
 import React from "react";
-import BackgroundWrapper from "../BackgroundWrapper";
 import "../../css/pick-category.css";
 import { useAppDispatch } from "@/app/hooks";
 import { closeInitializeStart } from "@/app/features/initialize/initialize";
@@ -14,13 +13,11 @@ const PickCategory = () => {
     dispatch(closeInitializeStart());
   };
   return (
-    <BackgroundWrapper>
-      <div className="pick-category">
-        <GameHeader onClick={handleCloseStartGame} title="pick a category" />
-        <Categories />
-        {/* <Category text="movies" /> */}
-      </div>
-    </BackgroundWrapper>
+    <div className="pick-category">
+      <GameHeader onClick={handleCloseStartGame} title="pick a category" />
+      <Categories />
+      {/* <Category text="movies" /> */}
+    </div>
   );
 };
 

@@ -10,7 +10,6 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import "../../css/game.css";
-import GameHeader from "../GameHeader";
 import GameNav from "./GameNav";
 import { RootState } from "@/app/store";
 import Buttons from "./Buttons";
@@ -19,7 +18,7 @@ import Modal from "../modal/Modal";
 import Options from "./Options";
 
 const fetchCategoryDetails = async (id: string) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_GAME_URL}/${id}`);
+  const res = await fetch(`http://127.0.0.1:8000/api/v1/games/${id}`);
   if (!res.ok) {
     throw new Error("Failed to fetch category data");
   }

@@ -1,4 +1,3 @@
-import BackgroundWrapper from "@/app/components/BackgroundWrapper";
 import FetchGameDetails from "@/app/components/game/FetchGameDetails";
 import React from "react";
 
@@ -9,11 +8,7 @@ interface PageProps {
 const GamePage = ({ params }: PageProps) => {
   const { id } = params;
 
-  return (
-    <BackgroundWrapper>
-      <FetchGameDetails id={id} />
-    </BackgroundWrapper>
-  );
+  return <FetchGameDetails id={id} />;
 };
 
 export default GamePage;

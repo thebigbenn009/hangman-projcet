@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
 
-const loading = () => {
+const Loading = () => {
   return (
-    <div>
-      <h1>talking about me when i am making money hehehe</h1>
+    <div className="loaded">
+      <div className="loader"></div>
     </div>
   );
 };
 
-export default loading;
+export default Loading;

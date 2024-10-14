@@ -4,7 +4,6 @@ import { howToPlayInfo } from "@/app/data/howToPlay";
 import HowToPlayCard from "./HowToPlayCard";
 import { useAppDispatch } from "@/app/hooks";
 import { closeHowToPlay } from "@/app/features/initialize/initialize";
-import BackgroundWrapper from "../BackgroundWrapper";
 import GameHeader from "../GameHeader";
 
 const HowToPlay = () => {
@@ -13,18 +12,16 @@ const HowToPlay = () => {
     dispatch(closeHowToPlay());
   };
   return (
-    <BackgroundWrapper>
-      <section className="section-how-to-play">
-        <div className="how-to-play-cont">
-          <GameHeader onClick={handleCloseHowToPlay} title="how to play" />
-          <div className="how-to-play-wrapper">
-            {howToPlayInfo.map((el) => {
-              return <HowToPlayCard {...el} />;
-            })}
-          </div>
+    <section className="section-how-to-play">
+      <div className="how-to-play-cont">
+        <GameHeader onClick={handleCloseHowToPlay} title="how to play" />
+        <div className="how-to-play-wrapper">
+          {howToPlayInfo.map((el) => {
+            return <HowToPlayCard {...el} />;
+          })}
         </div>
-      </section>
-    </BackgroundWrapper>
+      </div>
+    </section>
   );
 };
 

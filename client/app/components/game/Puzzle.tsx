@@ -5,10 +5,12 @@ import {
   setGameStarted,
   updateAnswer,
 } from "@/app/features/gameSlice";
+import Loading from "@/app/games/loading";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { RootState } from "@/app/store";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import LoadingComponent from "../LoadingComponent";
 
 const Puzzle = () => {
   const dispatch = useAppDispatch();
@@ -83,7 +85,7 @@ const Puzzle = () => {
             )
           )
         ) : (
-          <p>Loading...</p>
+          <LoadingComponent />
         )}
       </div>
     </div>

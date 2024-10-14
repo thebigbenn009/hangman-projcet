@@ -3,6 +3,8 @@ import React, { useEffect } from "react";
 import Category from "./Category";
 import { useQuery } from "@tanstack/react-query";
 import { useAppDispatch } from "@/app/hooks";
+import Loading from "@/app/games/loading";
+import LoadingComponent from "../LoadingComponent";
 const fetchCategories = async () => {
   const response = await fetch("http://127.0.0.1:8000/api/v1/games");
   if (!response.ok) {
@@ -17,12 +19,7 @@ const Categories = () => {
     queryKey: ["categories"],
     queryFn: fetchCategories,
   });
-  if (isLoading)
-    return (
-      <div>
-        <h1>Loading</h1>
-      </div>
-    );
+  if (isLoading) return <LoadingComponent />;
   if (isError) {
     return (
       <div>
