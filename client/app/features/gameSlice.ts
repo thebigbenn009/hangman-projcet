@@ -25,6 +25,9 @@ interface InitialState {
   gameOver: boolean;
   verdict: "" | "you win" | "you lose";
   newCategory: boolean;
+  clueLetters: string[];
+  selectedLetters: string[];
+  unneededLetters: string[];
 }
 const initialState: InitialState = {
   gameStarted: false,
@@ -67,6 +70,9 @@ const initialState: InitialState = {
   gameOver: false,
   verdict: "",
   newCategory: false,
+  clueLetters: [],
+  selectedLetters: [],
+  unneededLetters: [],
 };
 export const gameSlice = createSlice({
   name: "game",
@@ -106,6 +112,7 @@ export const gameSlice = createSlice({
         }
 
         state.missingWords = missingWordsArray;
+        state.userOption = missingWordsArray;
       }
     },
     updateAnswer: (state, action: PayloadAction<string[]>) => {
@@ -176,6 +183,48 @@ export const gameSlice = createSlice({
       state.game = null;
       state.userOption = null;
     },
+
+    puzzleClue: (state) => {
+      if (state.userOption === null || state.correctWords === null) {
+        return;
+      }
+
+      type LetterCount = {
+        [key: string]: number;
+      };
+
+      const letterCount: LetterCount = {};
+      const revealedCount: LetterCount = {};
+
+      // Step 1: Count letters in correctWords
+      state.correctWords.forEach((letter) => {
+        const lowerLetter = letter.toLowerCase();
+        letterCount[lowerLetter] = (letterCount[lowerLetter] || 0) + 1;
+      });
+
+      // Step 2: Count revealed letters in userOption
+      state.userOption.forEach((letter) => {
+        if (letter !== "") {
+          const lowerLetter = letter.toLowerCase();
+          revealedCount[lowerLetter] = (revealedCount[lowerLetter] || 0) + 1;
+        }
+      });
+
+      // Step 3: Determine unneeded letters
+      const unneeded: string[] = [];
+      state.userOption.forEach((letter) => {
+        if (letter !== "") {
+          const lowerLetter = letter.toLowerCase();
+          if (
+            (revealedCount[lowerLetter] || 0) >= (letterCount[lowerLetter] || 0)
+          ) {
+            unneeded.push(lowerLetter);
+          }
+        }
+      });
+
+      state.unneededLetters = Array.from(new Set(unneeded));
+    },
   },
 });
 
@@ -189,5 +238,7 @@ export const {
   playAgain,
   checkForWin,
   setNewCategory,
+  puzzleClue,
+  // updateSelectedLetters,
 } = gameSlice.actions;
 export default gameSlice.reducer;

@@ -102,12 +102,21 @@
   font-size: 48px;
   text-transform: uppercase;
 }
+.picked {
+  background-color: rgb(255, 255, 255, 0.25);
+}
 .alphabets {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
 }
+.game-keys:hover {
+  background-color: #2463ff;
+  transition: all 0.3s ease-in-out;
+  color: #fff;
+}
+
 .words {
   width: 80%;
   margin-bottom: 120px;

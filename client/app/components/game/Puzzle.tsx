@@ -2,6 +2,7 @@
 import {
   checkForCorrectAnswer,
   checkForWin,
+  puzzleClue,
   setGameStarted,
   updateAnswer,
 } from "@/app/features/gameSlice";
@@ -63,7 +64,9 @@ const Puzzle = () => {
       dispatch(checkForWin());
     }
   }, [inputValues, gameStarted]);
-
+  useEffect(() => {
+    dispatch(puzzleClue());
+  }, [inputValues]);
   return (
     <div className="">
       <div className="words">
